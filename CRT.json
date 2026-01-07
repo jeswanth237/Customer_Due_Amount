@@ -1,0 +1,710 @@
+{
+  "name": "CRT",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c4ac3ecf-5027-4c73-aff8-a5bd6d886240",
+              "name": "FULL NAME",
+              "value": "={{ $json['First Name'] }}{{ $json['Middle Name'] }} {{ $json['Last Name'] }}",
+              "type": "string"
+            },
+            {
+              "id": "344cfc60-22f4-4e14-a230-abf96e63a62b",
+              "name": "INDIAN phone number",
+              "value": "=''+91{{ $json['INDIAN phone number'] }}",
+              "type": "string"
+            },
+            {
+              "id": "66d65d58-8def-4ec8-a85b-20b79c7f546a",
+              "name": "ADDRESS",
+              "value": "={{ $json['H-NO'] }}, {{ $json['PERMANENT CITY'] }}, {{ $json[' STATE'] }}-{{ $json['POSTAL CODE'] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "3817868e-9feb-4f02-8890-54f161157c4b",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1TsWfVheRPiL49gaZkx9tqxtTjoVIERftaHYRBvqrKTk",
+          "mode": "list",
+          "cachedResultName": "CRT",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1TsWfVheRPiL49gaZkx9tqxtTjoVIERftaHYRBvqrKTk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1201066285,
+          "mode": "list",
+          "cachedResultName": "RESPONSES",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1TsWfVheRPiL49gaZkx9tqxtTjoVIERftaHYRBvqrKTk/edit#gid=1201066285"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Full Name": "={{ $json['FULL NAME'] }}",
+            "INDIAN phone number": "={{ $json['INDIAN phone number'] }}",
+            "College name": "={{ $('On form submission').item.json['COLLEGE NAME'] }}",
+            "Branch": "={{ $('On form submission').item.json.BRANCH }}",
+            "Roll No": "={{ $('On form submission').item.json['ROLL NO'] }}",
+            "E-MAIL": "={{ $('On form submission').item.json['E-MAIL'] }}",
+            "SECTION": "={{ $('On form submission').item.json.SECTION }}",
+            "CGPA": "={{ $('On form submission').item.json.CGPA }}",
+            "ADDRESS": "={{ $json.ADDRESS }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "INDIAN phone number",
+              "displayName": "INDIAN phone number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "College name",
+              "displayName": "College name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Branch",
+              "displayName": "Branch",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Roll No",
+              "displayName": "Roll No",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "E-MAIL",
+              "displayName": "E-MAIL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CGPA",
+              "displayName": "CGPA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "SECTION",
+              "displayName": "SECTION",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ADDRESS",
+              "displayName": "ADDRESS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        416,
+        0
+      ],
+      "id": "e0d7120c-a5ba-4eaa-b686-aee41361f8d6",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "SPRuAYuX7rOLKcoh",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "98dbca57-0a23-4223-9e44-33d3877bc5ef",
+              "leftValue": "={{ $json.CGPA }}",
+              "rightValue": 7.5,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        624,
+        0
+      ],
+      "id": "c582f728-ce67-4087-8602-e67af799ffc9",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1TsWfVheRPiL49gaZkx9tqxtTjoVIERftaHYRBvqrKTk",
+          "mode": "list",
+          "cachedResultName": "CRT",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1TsWfVheRPiL49gaZkx9tqxtTjoVIERftaHYRBvqrKTk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1799349611,
+          "mode": "list",
+          "cachedResultName": "ELEGIBLE CANIDIDATES",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1TsWfVheRPiL49gaZkx9tqxtTjoVIERftaHYRBvqrKTk/edit#gid=1799349611"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ROLL NO": "={{ $json['Roll No'] }}",
+            "INDIAN PHONE NUMBER": "={{ $json['INDIAN phone number'] }}",
+            "FULL NAME": "={{ $json['Full Name'] }}",
+            "EMAIL": "={{ $json['E-MAIL'] }}",
+            "COLLEGE NAME": "={{ $json['College name'] }}",
+            "BRANCH": "={{ $json.Branch }}",
+            "ADDRESS": "={{ $json.ADDRESS }}",
+            " SECTION": "={{ $json.SECTION }}",
+            "CGPA": "={{ $json.CGPA }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ROLL NO",
+              "displayName": "ROLL NO",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "FULL NAME",
+              "displayName": "FULL NAME",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "INDIAN PHONE NUMBER",
+              "displayName": "INDIAN PHONE NUMBER",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "EMAIL",
+              "displayName": "EMAIL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "COLLEGE NAME",
+              "displayName": "COLLEGE NAME",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "BRANCH",
+              "displayName": "BRANCH",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": " SECTION",
+              "displayName": " SECTION",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ADDRESS",
+              "displayName": "ADDRESS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CGPA",
+              "displayName": "CGPA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        832,
+        -96
+      ],
+      "id": "25e2e817-f8a0-4282-8947-728d1eb92e64",
+      "name": "Append row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "SPRuAYuX7rOLKcoh",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1TsWfVheRPiL49gaZkx9tqxtTjoVIERftaHYRBvqrKTk",
+          "mode": "list",
+          "cachedResultName": "CRT",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1TsWfVheRPiL49gaZkx9tqxtTjoVIERftaHYRBvqrKTk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 265167780,
+          "mode": "list",
+          "cachedResultName": " NOT ELEGIBLE CANIDIDATES",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1TsWfVheRPiL49gaZkx9tqxtTjoVIERftaHYRBvqrKTk/edit#gid=265167780"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "ROLL NO": "={{ $json['Roll No'] }}",
+            "FULL NAME": "={{ $json['Full Name'] }}",
+            "INDIAN PHONE NUMBER": "={{ $json['INDIAN phone number'] }}",
+            "COLLEGE NAME": "={{ $json['College name'] }}",
+            "EMAIL": "={{ $json['E-MAIL'] }}",
+            "BRANCH": "={{ $json.Branch }}",
+            " SECTION": "={{ $json.SECTION }}",
+            "ADDRESS": "={{ $json.ADDRESS }}",
+            "CGPA": "={{ $json.CGPA }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ROLL NO",
+              "displayName": "ROLL NO",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "FULL NAME",
+              "displayName": "FULL NAME",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "INDIAN PHONE NUMBER",
+              "displayName": "INDIAN PHONE NUMBER",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "EMAIL",
+              "displayName": "EMAIL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "COLLEGE NAME",
+              "displayName": "COLLEGE NAME",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "BRANCH",
+              "displayName": "BRANCH",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": " SECTION",
+              "displayName": " SECTION",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "ADDRESS",
+              "displayName": "ADDRESS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CGPA",
+              "displayName": "CGPA",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        832,
+        96
+      ],
+      "id": "031a6f30-81fd-4079-8ce1-98bb92aad83c",
+      "name": "Append row in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "SPRuAYuX7rOLKcoh",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "CRT Eligibility & Enrollment Form",
+        "formDescription": "Please fill out this form to confirm your eligibility and register for the upcoming Campus Recruitment Training (CRT) classes. Provide accurate academic and personal details so we can verify your participation. Only students who meet the eligibility criteria will be considered for enrollment.\n",
+        "formFields": {
+          "values": [
+            {
+              "fieldName": "First Name",
+              "fieldLabel": "First Name",
+              "requiredField": true
+            },
+            {
+              "fieldName": "Middle Name",
+              "fieldLabel": "Middle Name"
+            },
+            {
+              "fieldName": "Last Name",
+              "fieldLabel": "Last Name",
+              "requiredField": true
+            },
+            {
+              "fieldName": "ROLL NO",
+              "fieldLabel": "ROLL NO",
+              "requiredField": true
+            },
+            {
+              "fieldName": "BRANCH",
+              "fieldLabel": "BRANCH",
+              "requiredField": true
+            },
+            {
+              "fieldName": "SECTION",
+              "fieldLabel": "SECTION",
+              "requiredField": true
+            },
+            {
+              "fieldName": "COLLEGE NAME",
+              "fieldLabel": "COLLEGE NAME",
+              "requiredField": true
+            },
+            {
+              "fieldName": "INDIAN phone number",
+              "fieldLabel": "INDIAN phone number",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldName": "E-MAIL",
+              "fieldLabel": "E-MAIL",
+              "requiredField": true
+            },
+            {
+              "fieldName": "H-NO",
+              "fieldLabel": "H-NO",
+              "requiredField": true
+            },
+            {
+              "fieldName": "PERMANENT CITY",
+              "fieldLabel": "PERMANENT CITY",
+              "requiredField": true
+            },
+            {
+              "fieldName": " STATE",
+              "fieldLabel": " STATE",
+              "requiredField": true
+            },
+            {
+              "fieldName": "POSTAL CODE",
+              "fieldLabel": "POSTAL CODE",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldName": "CGPA",
+              "fieldLabel": "CGPA",
+              "fieldType": "number",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "89f5a449-30f6-4a35-be2f-d374bcd8d04d",
+      "name": "On form submission",
+      "webhookId": "44fba88e-732f-4571-84ca-b30890f81769"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.EMAIL }}",
+        "subject": "Congratulations! You are eligible for CRT classes",
+        "emailType": "text",
+        "message": "=Dear  {{ $json['FULL NAME'] }} ,\nWe are pleased to inform you that you have been found eligible to participate in the upcoming Campus Recruitment Training (CRT) classes. This program is designed to strengthen your skills and prepare you for placement opportunities. Please ensure you attend all sessions as scheduled. Further details regarding class timings and materials will be shared shortly. \nWishing you success in your preparation!\n\nBest regards,\n360 degree ",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1040,
+        -80
+      ],
+      "id": "e3d6cc6f-d5f4-40e8-8eb8-e204104e659d",
+      "name": "Send a message",
+      "webhookId": "13310640-ceb5-4e0a-8055-95a862398286",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "iiHIBMPAM0tjYnST",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.EMAIL }}",
+        "subject": "CRT Eligibility Status – Not Eligible",
+        "emailType": "text",
+        "message": "=Dear {{ $json['FULL NAME'] }},Thank you for your interest in the Campus Recruitment Training (CRT) classes. After reviewing your details, we regret to inform you that you do not meet the eligibility criteria for this program at this time. We encourage you to continue focusing on your academic and skill development. Additional opportunities and support programs will be announced in the future, and we look forward to your participation.\n\nBest regards,\n360 DEGREE\n",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1040,
+        96
+      ],
+      "id": "407d57ed-ce2c-4a8b-9b91-b5f5ccce83a8",
+      "name": "Send a message1",
+      "webhookId": "48dc275f-adb9-49a8-9285-4e32a9e9dc7c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "iiHIBMPAM0tjYnST",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet2": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "8a99c891-8213-4c9d-9682-b14b966ce7da",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4ecf74ff3931ef0d0d89c2693be50f25ab3f0bdd58c703d969539c7f15c6abf2"
+  },
+  "id": "pz2lTEBHJpA_3cFCzWbxN",
+  "tags": []
+}
