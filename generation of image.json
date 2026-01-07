@@ -1,0 +1,192 @@
+{
+  "name": "generation of image",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e7568ffe-8d10-4de7-ad95-4c6d5bd6fccd",
+      "name": "Telegram Trigger",
+      "webhookId": "1bf18add-85a2-4fe3-a636-0759367a5c93",
+      "credentials": {
+        "telegramApi": {
+          "id": "kto8fXjaiwTGFKy5",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "You are an AI assistant whose role is to take a raw user request for an image \nand transform it into a polished, detailed, and creative prompt suitable for \nimage generation. \n\nInstructions:\n- Read the user’s input carefully and summarize it into a clear, vivid description.\n- Expand vague requests into specific visual details (style, mood, colors, perspective).\n- Keep the final prompt concise (1–3 sentences) but imaginative.\n- Avoid unsafe, violent, or copyrighted/trademarked content.\n- Output only the refined prompt text, without extra commentary."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "1e955287-3509-4954-aa9c-2eb1d926c1de",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        80,
+        208
+      ],
+      "id": "90d5c0e2-b437-4ed1-9b33-74bb5c9f4c31",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "N4dd6sJ4YQTSD3b8",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.message.chat.id }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        208
+      ],
+      "id": "49e95280-7ef9-469d-aebf-3dac4b52c563",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "prompt": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        560,
+        0
+      ],
+      "id": "8d70d358-8248-4ddc-b5dc-dd7bc7341a01",
+      "name": "Generate an image",
+      "credentials": {
+        "openAiApi": {
+          "id": "kRf2Rkmi9178UiAe",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "binaryData": true,
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        768,
+        0
+      ],
+      "id": "80845b76-de66-48b1-b2c1-a6ebc610b099",
+      "name": "Send a photo message",
+      "webhookId": "fd57c341-33d8-481c-941b-9938ba02f5b9",
+      "credentials": {
+        "telegramApi": {
+          "id": "kto8fXjaiwTGFKy5",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Generate an image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate an image": {
+      "main": [
+        [
+          {
+            "node": "Send a photo message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "7e571e37-89ab-4e4e-8812-52a1dce7628e",
+  "meta": {
+    "instanceId": "4ecf74ff3931ef0d0d89c2693be50f25ab3f0bdd58c703d969539c7f15c6abf2"
+  },
+  "id": "kATLW0GgIJ2g4u3f0t1iG",
+  "tags": []
+}
